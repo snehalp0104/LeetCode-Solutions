@@ -22,8 +22,8 @@ public:
                 r=right[s[i]][right[s[i]].size()-1];
             else r=n;
             
-            len1=max(1,i-l);
-            len2=max(1,r-i);
+            len1=i-l;
+            len2=r-i;
             len+=len1*len2;
             left[s[i]]=i;
         }
