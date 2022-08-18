@@ -11,53 +11,46 @@
 class Solution {
 public:
     ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
-       ListNode* temp1=l1; 
-          ListNode* temp2=l2;
-       vector<int> s1;
-       vector<int> s2;
-        while(temp1!=NULL)
-        {
-            s1.push_back(temp1->val);
-            temp1=temp1->next;
-        }
-         while(temp2!=NULL)
-        {
-            s2.push_back(temp2->val);
-            temp2=temp2->next;
-        }
+        ListNode* dummy=new ListNode(-1);
+        ListNode* ret=dummy;
+        
         int carry=0;
-        vector<int> ans;
-        int size1=s1.size();
-        int size2=s2.size();
-       int diff=abs(size1-size2);
-        if(s1.size()<s2.size())
-            while(diff--)
-                s1.push_back(0);
-        if(s2.size()<s1.size())
-            while(diff--)
-                s2.push_back(0);
-        reverse(s1.begin(),s1.end());
-          reverse(s2.begin(),s2.end());
-        int l=s1.size();
-        for(int i=l-1;i>=0;i--)
-        {
-            int sum=(s1[i]+s2[i]+carry)%10;
-             carry=(s1[i]+s2[i]+carry)/10;
-            ans.push_back(sum);
+        while(l1 and l2)
+        {  int sum=0;
+            sum=(l1->val + l2->val + carry )%10;
+            carry=(l1->val + l2->val + carry )/10;
+         ListNode * s = new ListNode(sum);
+         dummy->next=s;
+         dummy=dummy->next;
+         l1=l1->next;
+         l2=l2->next;
         }
-        if(carry==1)
-            ans.push_back(carry);
-        int n=ans.size();
-        ListNode *res=new ListNode(ans[0]);
-        ListNode *dummy=res;
-        for(int i=1;i<n;i++)
+        while(l1)
         {
-            ListNode *l=new ListNode(ans[i]);
-            dummy->next=l;
-            dummy=dummy->next;
+            int sum=(l1->val + carry )%10;
+             carry=(l1->val + carry )/10;
+            ListNode * s =new ListNode(sum);
+         dummy->next=s;
+         dummy=dummy->next;
+            l1=l1->next;
         }
         
-     
-       return res; 
+        while(l2)
+        {
+            int sum=(l2->val + carry )%10;
+             carry=(l2->val + carry )/10;
+            ListNode * s =new ListNode(sum);
+         dummy->next=s;
+         dummy=dummy->next;
+            l2=l2->next;
+        }
+        if(carry==1)
+        {
+            ListNode * c=new ListNode(1);
+            dummy->next=c;
+            
+        }
+        return ret->next;
+        
     }
 };
