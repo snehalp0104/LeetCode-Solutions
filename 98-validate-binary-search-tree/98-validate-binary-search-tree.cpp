@@ -19,9 +19,10 @@ public:
     
     bool solve(TreeNode* root,long minval,long maxval)
     {
-        if(root==NULL)
-            return true;
-        if(root->val>=maxval or root->val<=minval) return false;
+        if(root==NULL) return true;
+        if(root->val<=minval or root->val>=maxval) return false;
+       
         return solve(root->left,minval,root->val) and solve(root->right,root->val,maxval);
+        
     }
 };
