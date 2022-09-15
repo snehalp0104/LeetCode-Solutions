@@ -7,7 +7,7 @@ public:
         int count=0;
         for(int i=0;i<sz;i++)
         {
-            adj[prerequisites[i][0]].push_back(prerequisites[i][1]);
+            adj[prerequisites[i][1]].push_back(prerequisites[i][0]);
         }
         vector<int> indeg(n);
         for(int i=0;i<n;i++)
