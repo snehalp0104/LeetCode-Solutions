@@ -27,7 +27,7 @@ public:
         for(int i=0;i<edges.size();i++)
         {
             adj[edges[i][0]].push_back(edges[i][1]);
-             adj[edges[i][1]].push_back(edges[i][0]);
+            adj[edges[i][1]].push_back(edges[i][0]);
         }
         vector<int> vis(n,0);
         map<char,int> mp;
