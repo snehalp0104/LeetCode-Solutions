@@ -57,17 +57,16 @@ public:
 }; 
 class Solution {
   public:
-  bool isValid(int row,int col, int n ,int m)
+  bool isValid(int row,int col, int n ,int m,vector<vector<int>> &vis)
   {
-      if(row>=0 and row<n and col>=0 and col<m )
+      if(row>=0 and row<n and col>=0 and col<m and  vis[row][col] == 1)
        return true;
       return false;
   }
     vector<int> numOfIslands(int n, int m, vector<vector<int>> &operators) {
         // code here
       DisjointSet ds(n * m);
-        int vis[n][m];
-        memset(vis, 0, sizeof vis);
+       vector<vector<int>> vis(n,vector<int>(m,0));
         int cnt = 0;
         vector<int> ans;
         for (auto it : operators) {
@@ -88,15 +87,15 @@ class Solution {
             for (int ind = 0; ind < 4; ind++) {
                 int adjr = row + dr[ind];
                 int adjc = col + dc[ind];
-                if (isValid(adjr, adjc, n, m)) {
-                    if (vis[adjr][adjc] == 1) {
+                if (isValid(adjr, adjc, n, m,vis)) {
+                   
                         int nodeNo = row * m + col;
                         int adjNodeNo = adjr * m + adjc;
                         if (ds.findUPar(nodeNo) != ds.findUPar(adjNodeNo)) {
                             cnt--;
                             ds.unionBySize(nodeNo, adjNodeNo);
                         }
-                    }
+                    
                 }
             }
             ans.push_back(cnt);
