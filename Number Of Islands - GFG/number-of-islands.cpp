@@ -6,6 +6,7 @@ using namespace std;
 
 // } Driver Code Ends
 // User function Template for C++
+// User function Template for C++
 class DisjointSet {
     vector<int> rank, parent, size; 
 public: 
@@ -57,48 +58,49 @@ public:
 }; 
 class Solution {
   public:
-  bool isValid(int row,int col, int n ,int m,vector<vector<int>> &vis)
+  bool isvalid(int row,int col, int n ,int m,vector<vector<int>> &vis)
   {
-      if(row>=0 and row<n and col>=0 and col<m and  vis[row][col] == 1)
+      if(row>=0 and row<n and col>=0 and col<m )
        return true;
       return false;
   }
     vector<int> numOfIslands(int n, int m, vector<vector<int>> &operators) {
         // code here
-      DisjointSet ds(n * m);
-       vector<vector<int>> vis(n,vector<int>(m,0));
-        int cnt = 0;
+        DisjointSet ds(n*m);
+        int count=0;
         vector<int> ans;
-        for (auto it : operators) {
-            int row = it[0];
-            int col = it[1];
-            if (vis[row][col] == 1) {
-                ans.push_back(cnt);
+        vector<vector<int>> vis(n,vector<int>(m,0));
+        for(auto it: operators)
+        {
+            int row=it[0];
+            int col=it[1];
+            if(vis[row][col]==1)
+            {
+                ans.push_back(count);
                 continue;
             }
-            vis[row][col] = 1;
-            cnt++;
-            // row - 1, col
-            // row , col + 1
-            // row + 1, col
-            // row, col - 1;
-            int dr[] = { -1, 0, 1, 0};
-            int dc[] = {0, 1, 0, -1};
-            for (int ind = 0; ind < 4; ind++) {
-                int adjr = row + dr[ind];
-                int adjc = col + dc[ind];
-                if (isValid(adjr, adjc, n, m,vis)) {
-                   
-                        int nodeNo = row * m + col;
-                        int adjNodeNo = adjr * m + adjc;
-                        if (ds.findUPar(nodeNo) != ds.findUPar(adjNodeNo)) {
-                            cnt--;
-                            ds.unionBySize(nodeNo, adjNodeNo);
-                        }
-                    
+            vis[row][col]=1;
+            count++;
+            int delr[]={-1,0,1,0};
+            int delc[]={0,1,0,-1};
+            for(int i=0;i<4;i++)
+            {
+                int adjr=row+delr[i];
+                int adjc=col+delc[i];
+                int nodeno=row*m+col;
+                int adjno=adjr*m+adjc;
+                if(isvalid(adjr,adjc,n,m,vis))
+                { if(vis[adjr][adjc]==1)
+                   { if(ds.findUPar(nodeno)!=ds.findUPar(adjno))
+                    {
+                        count--;
+                        ds.unionBySize(nodeno,adjno);
+                    }
+                }
                 }
             }
-            ans.push_back(cnt);
+            ans.push_back(count);
+            
         }
         return ans;
     }
