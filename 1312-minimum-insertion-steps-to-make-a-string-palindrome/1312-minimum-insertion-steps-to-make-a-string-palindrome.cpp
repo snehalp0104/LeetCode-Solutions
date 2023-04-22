@@ -3,18 +3,19 @@ public:
     int findlongestpal(string s,string k)
     {
         int n=s.size();
-        vector<vector<int>> dp(n+1,vector<int>(n+1,0));
+       vector<int> prev(n+1,0),curr(n+1,0);
         for(int i=1;i<=n;i++)
         {
             for(int j=1;j<=n;j++)
             {
                 if(s[i-1]==k[j-1])
-                    dp[i][j]=dp[i-1][j-1] +1;
+                    curr[j]=prev[j-1] +1;
                 else 
-                    dp[i][j]=max(dp[i-1][j],dp[i][j-1]);
+                    curr[j]=max(prev[j],curr[j-1]);
             }
+            prev=curr;
         }
-        return dp[n][n];
+        return prev[n];
     }
     int minInsertions(string s) {
      string k=s;
