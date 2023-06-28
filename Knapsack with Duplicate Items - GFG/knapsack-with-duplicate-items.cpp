@@ -32,7 +32,7 @@ public:
         // code here
         vector<vector<int>> dp(N,vector<int>(W+1,-1));
         int ans=  solve(0,W,N,val,wt,dp);
-        if(ans==-1e9) return 0;
+        
         return ans;
     }
 };
