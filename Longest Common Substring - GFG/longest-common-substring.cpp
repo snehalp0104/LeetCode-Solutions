@@ -6,39 +6,32 @@ using namespace std;
 class Solution{
     public:
     
-    int longestCommonSubstr (string S1, string S2, int n, int m)
+    int longestCommonSubstr (string text1, string text2, int n, int m)
     {
         // your code here
-        int dp[n+1][m+1];
-        for(int i=0;i<=n;i++)
+               vector<vector<int>> dp(text1.size() + 1,vector<int>(text2.size() + 1,0));
+      // return solve(0,0,text1,text2,dp); 
+      for(int i=text1.size()-1;i>=0;i--)
+      {
+          for(int j=text2.size()-1;j>=0;j--)
+          {
+              if(text1[i]==text2[j])
+              {
+                  dp[i][j]=1+dp[i+1][j+1];
+              }
+              else
+              dp[i][j]=0;
+          }
+      }
+    int maxi=INT_MIN;
+    for(int i=0;i<=n;i++)
+    {
+        for(int j=0;j<=m;j++)
         {
-            for(int j=0;j<=m;j++)
-            {
-                if(i==0 or j==0)
-                dp[i][j]=0;
-            }
+            maxi=max(maxi,dp[i][j]);
         }
-        
-         for(int i=1;i<=n;i++)
-        {
-            for(int j=1;j<=m;j++)
-            {
-               if(S1[i-1]==S2[j-1]) 
-                dp[i][j]=1+dp[i-1][j-1];
-                
-                else dp[i][j]=0;
-                
-            }
-        }
-       int ans=INT_MIN;
-         for(int i=0;i<=n;i++)
-        {
-            for(int j=0;j<=m;j++)
-            {
-                ans=max(ans,dp[i][j]);
-            }
-        }
-      return ans;  
+    }
+    return maxi;
     }
 };
 
